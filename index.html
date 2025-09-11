@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>📰 NetWatch | iOS Style</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header card">
+      <div class="brand">📱 NetWatch</div>
+      <div id="clock" class="clock">--:--</div>
+    </header>
+
+    <section class="card">
+      <h2>Executive Tracker</h2>
+      <p><strong>President:</strong> Donald J. Trump (47th)</p>
+      <p><strong>Vice President:</strong> JD Vance</p>
+      <p><strong>Term:</strong> Jan 20, 2025 – Jan 20, 2029</p>
+    </section>
+
+    <section class="card">
+      <h2>What We’re Watching</h2>
+      <ul class="list">
+        <li>🟡 Social Security</li>
+        <li>🔵 Medicaid</li>
+        <li>🟠 Housing</li>
+        <li>⚫ SNAP / EBT</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Approval Ratings</h2>
+      <canvas id="approvalChart"></canvas>
+    </section>
+
+    <section class="card">
+      <h2>Livestock Market</h2>
+      <div id="market"></div>
+    </section>
+
+    <section class="card">
+      <h2>Resources</h2>
+      <ul class="list">
+        <li><a href="https://www.cms.gov/" target="_blank">CMS</a></li>
+        <li><a href="https://www.hud.gov/" target="_blank">HUD</a></li>
+        <li><a href="https://www.usda.gov/" target="_blank">USDA</a></li>
+        <li><a href="https://www.ssa.gov/" target="_blank">SSA</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <a href="#home" class="active">🏠<br/>Home</a>
+    <a href="#news">📰<br/>News</a>
+    <a href="#medicaid">💊<br/>Medicaid</a>
+    <a href="#social-security">💵<br/>Security</a>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
