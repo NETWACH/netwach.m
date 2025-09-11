@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>NetWatch • iOS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Status / gov banner -->
+  <div class="gov-banner">
+    <span class="flag">🇺🇸</span>
+    Not an official website of the United States government
+    <button id="gov-toggle" class="link">Here’s how you know</button>
+    <div id="gov-info" class="gov-dropdown">
+      <div><strong>.gov</strong> domains are official U.S. government organizations.</div>
+      <div><strong>HTTPS</strong> and the lock (🔒) mean you’re securely connected.</div>
+    </div>
+  </div>
+
+  <!-- Nav bar -->
+  <header class="navbar glass">
+    <div class="brand">
+      <img src="logo.png" alt="NetWatch logo" />
+      <span>NetWatch</span>
+    </div>
+    <div class="right">
+      <div id="clock" class="clock">--:--</div>
+      <button id="weatherBtn" class="chip">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon"><path d="M12 2v2M5.22 5.22l1.42 1.42M2 12h2m1.8 6.78 1.42-1.42M12 20v2m6.78-1.8-1.42-1.42M20 12h2M17.36 6.64l1.42-1.42"/></svg>
+        <span id="wx-temp">--°</span>
+        <span id="wx-place">Locating…</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon caret"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div id="weatherPanel" class="popover glass">
+        <div class="wx-head">
+          <div id="wx-meta" class="muted">—</div>
+          <div class="seg">
+            <button id="uF" class="seg-btn active">°F</button>
+            <button id="uC" class="seg-btn">°C</button>
+          </div>
+        </div>
+        <div id="wx-forecast" class="forecast"></div>
+        <div id="wx-daily" class="daily"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top tabs (desktop), iOS tabbar (mobile) -->
+  <nav class="topnav glass">
+    <a href="#home" class="active">Home</a>
+    <a href="#news">News & Testimonies</a>
+    <a href="#medicaid">Medicaid</a>
+    <a href="#social-security">Social Security</a>
+  </nav>
+
+  <main class="container" id="home">
+    <!-- Executive -->
+    <section class="card glass exec">
+      <img class="seal" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/200px-Seal_of_the_President_of_the_United_States.svg.png" alt="Presidential Seal" />
+      <div class="info">
+        <h2 class="section">Executive Tracker</h2>
+        <dl class="grid">
+          <dt>President</dt><dd>Donald J. Trump (47th)</dd>
+          <dt>Vice President</dt><dd>JD Vance</dd>
+          <dt>Term</dt><dd>Jan 20, 2025 – Jan 20, 2029</dd>
+          <dt>Last Update</dt><dd id="last-update">—</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Watchlist -->
+    <section class="card glass">
+      <h2 class="section">What We’re Watching</h2>
+      <div class="tiles">
+        <div class="tile glass"><span class="glyph"></span><div><strong>Social Security</strong><p>Privatization / adjustments under discussion</p></div></div>
+        <div class="tile glass"><span class="glyph"></span><div><strong>Medicaid</strong><p>Potential funding reductions for low-income care</p></div></div>
+        <div class="tile glass"><span class="glyph"></span><div><strong>Housing</strong><p>Section 8 vouchers & related programs</p></div></div>
+        <div class="tile glass"><span class="glyph"></span><div><strong>SNAP / EBT</strong><p>Eligibility changes & work requirements</p></div></div>
+      </div>
+    </section>
+
+    <!-- Approval -->
+    <section class="card glass">
+      <h2 class="section">Approval Ratings</h2>
+      <canvas id="approvalChart" class="chart"></canvas>
+    </section>
+
+    <!-- Market -->
+    <section class="card glass">
+      <h2 class="section">Livestock Market</h2>
+      <div id="market" class="market-list"></div>
+    </section>
+
+    <!-- Congress -->
+    <section class="card glass congress">
+      <h2 class="section">Members of Congress — Live Directory</h2>
+      <div class="controls">
+        <input id="filterText" type="search" placeholder="Name, state, party" />
+        <select id="filterChamber">
+          <option value="">All Chambers</option>
+          <option value="House">House</option>
+          <option value="Senate">Senate</option>
+        </select>
+        <select id="filterState"></select>
+      </div>
+      <div class="list-wrap">
+        <table id="congressTable"><tbody><tr><td>Loading…</td></tr></tbody></table>
+      </div>
+    </section>
+
+    <!-- Links -->
+    <section class="links">
+      <div class="block glass">
+        <h3 class="section">Federal Agencies</h3>
+        <a href="https://www.cms.gov/" target="_blank">CMS</a>
+        <a href="https://www.hud.gov/" target="_blank">HUD</a>
+        <a href="https://www.usda.gov/" target="_blank">USDA</a>
+        <a href="https://www.ssa.gov/" target="_blank">SSA</a>
+      </div>
+      <div class="block glass">
+        <h3 class="section">Official Registers</h3>
+        <a href="https://www.federalregister.gov/" target="_blank">Federal Register</a>
+        <a href="https://www.congress.gov/" target="_blank">Congress</a>
+        <a href="https://www.govinfo.gov/" target="_blank">GovInfo</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="muted">© <span id="year"></span> NetWatch</footer>
+
+  <nav class="tabbar glass">
+    <a href="#home" class="active"><span class="ico">⌂</span><span>Home</span></a>
+    <a href="#news"><span class="ico">📰</span><span>News</span></a>
+    <a href="#medicaid"><span class="ico">💊</span><span>Medicaid</span></a>
+    <a href="#social-security"><span class="ico">💼</span><span>Security</span></a>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>

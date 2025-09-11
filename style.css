@@ -1,0 +1,108 @@
+
+:root{
+  --brand:#007aff; --green:#34c759; --red:#ff3b30; --muted:#8e8e93; --ink:#111;
+  --glass:rgba(255,255,255,.38); --stroke:rgba(255,255,255,.55);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",system-ui,sans-serif;
+  color:var(--ink); line-height:1.38;
+  background:url('us.jpg') center/cover fixed no-repeat;
+  /* fallback gradient if image missing */
+  background-color:#f2f2f7;
+}
+.container{max-width:980px;margin:16px auto 96px;padding:0 12px}
+
+/* GLASS DNA */
+.glass{
+  position:relative;
+  background:var(--glass);
+  backdrop-filter: blur(26px) saturate(180%);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
+  border:1px solid var(--stroke);
+  border-radius:22px;
+  box-shadow:0 6px 22px rgba(0,0,0,.08);
+}
+.glass::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:38%;
+  background:linear-gradient(180deg,rgba(255,255,255,.60),rgba(255,255,255,.20),transparent);
+  border-radius:inherit; pointer-events:none;
+}
+
+/* GOV */
+.gov-banner{position:sticky;top:0;z-index:60;padding:.6rem .9rem;text-align:center;
+  background:rgba(255,255,255,.6);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06)}
+.gov-banner .link{background:none;border:0;color:var(--brand);font-weight:600;margin-left:.4rem;cursor:pointer}
+.gov-dropdown{display:none;margin-top:.4rem;font-size:13px;color:#222}
+.gov-dropdown.open{display:block}
+
+/* NAVBAR */
+.navbar{display:flex;align-items:center;justify-content:space-between;margin:10px auto; padding:10px 14px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--brand);font-size:18px}
+.brand img{height:28px}
+.right{display:flex;align-items:center;gap:10px}
+.clock{color:var(--muted);font-variant-numeric:tabular-nums}
+.chip{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.35);cursor:pointer}
+.icon{width:16px;height:16px;stroke:#6b7280;fill:none;stroke-width:1.5}
+.caret{width:14px;height:14px;opacity:.7}
+.popover{position:absolute;right:12px;top:72px;width:320px;padding:12px;display:none;z-index:30}
+.popover.open{display:block}
+.wx-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.seg{display:flex;gap:6px}
+.seg-btn{padding:6px 10px;border-radius:12px;border:1px solid var(--stroke);background:rgba(255,255,255,.3)}
+.seg-btn.active{border-color:var(--brand);color:var(--brand)}
+.forecast{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.daily{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.muted{color:var(--muted)}
+
+/* TOPNAV + TABBAR */
+.topnav{display:none;gap:14px;justify-content:center;margin:10px auto;padding:8px 12px}
+.topnav a{padding:6px 10px;border-radius:12px;color:#333;text-decoration:none;font-weight:600}
+.topnav a.active,.topnav a:hover{background:rgba(0,0,0,.06);color:var(--brand)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:50}
+.tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--muted);font-size:11px}
+.tabbar a .ico{font-size:18px;line-height:1}
+.tabbar a.active{color:var(--brand);font-weight:600}
+
+/* CARDS */
+.card{padding:14px;margin:12px 0}
+.section{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 8px}
+
+/* EXEC */
+.exec{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center}
+.seal{width:84px;height:84px;border-radius:20px;border:2px solid rgba(255,255,255,.65);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.grid{display:grid;grid-template-columns:max-content 1fr;gap:6px 12px;font-size:14px}
+
+/* TILES */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.tile{display:flex;align-items:center;gap:10px;padding:10px;border-radius:16px}
+.glyph{font-family:ui-sans-serif,system-ui,Apple Color Emoji,Segoe UI Emoji; font-size:18px;color:var(--brand)}
+
+/* CHART */
+.chart{display:block;margin:0 auto;max-width:420px !important;height:160px !important}
+
+/* MARKET */
+.market-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.market-list .cardlet{padding:10px;border-radius:14px;border:1px solid var(--stroke);background:rgba(255,255,255,.4)}
+
+/* CONGRESS */
+.congress .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.congress input,.congress select{flex:1;min-width:120px;padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.55)}
+.congress table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.30);border-radius:16px;overflow:hidden}
+.congress thead{display:none}
+.congress td{padding:12px 14px;border-bottom:1px solid rgba(0,0,0,.06);font-size:13px}
+.congress td:first-child{font-weight:600}
+.profile-link{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.06)}
+.profile-link svg{width:16px;height:16px;stroke:var(--brand);fill:none;stroke-width:1.8}
+
+/* FOOTER */
+footer{margin:20px 0 86px;text-align:center;color:var(--muted);font-size:13px}
+
+/* RESPONSIVE */
+@media(min-width:768px){
+  .topnav{display:flex}
+  .tabbar{display:none}
+  .container{margin:18px auto 24px}
+}
