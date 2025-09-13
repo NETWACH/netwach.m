@@ -1,0 +1,239 @@
+:root {
+  --brand: #007aff;
+  --accent: #34c759;
+  --text: #111;
+  --muted: #666;
+  --ring: rgba(0,0,0,0.15);
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable", system-ui, sans-serif;
+  color: var(--text);
+  background: url("8446dc31-78c6-40c8-be0c-1f96ca26592c.jpg") no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  z-index: 0;
+}
+
+/* Dark overlay + blur */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: -1;
+}
+
+/* Bottom gradient fade */
+.overlay::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 35%;
+  background: linear-gradient(to top, rgba(0,0,40,0.8), transparent);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Clock wrapper */
+.clock-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+#appleClock {
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+/* App grid */
+.iphone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  align-items: start;
+  padding: 20px;
+}
+
+/* Tiles */
+.iphone-tile {
+  width: 100px;
+  height: 100px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+  text-align: center;
+  padding: 6px;
+  animation: floatAround 10s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.iphone-tile:hover {
+  transform: scale(1.08);
+}
+
+.tile-label {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Weather tile */
+.weather-tile #wx-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+.weather-tile #wx-temp {
+  font-size: 18px;
+  font-weight: 600;
+}
+.weather-tile #wx-place {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Executive tile */
+.exec-tile img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 4px;
+}
+.exec-tile .tile-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Approval Ratings tile */
+.chart-tile {
+  width: 100px;
+  height: 100px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#approvalChart {
+  max-width: 80px;
+  max-height: 70px;
+}
+
+/* Market tiles */
+.market-tile {
+  font-size: 12px;
+  text-align: center;
+  padding: 6px;
+  line-height: 1.3;
+}
+.market-tile div {
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--text);
+}
+
+/* Floating animation */
+@keyframes floatAround {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  20%  { transform: translate(12px, -8px) rotate(3deg); }
+  40%  { transform: translate(8px, 10px) rotate(-3deg); }
+  60%  { transform: translate(-10px, 6px) rotate(2deg); }
+  80%  { transform: translate(-8px, -10px) rotate(-2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Glassmorphic Panels */
+.card, .live-panel, .block, .congress {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  padding: 12px;
+  margin-top: 20px;
+}
+
+/* Hidden state */
+.hidden {
+  display: none;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-text {
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+}
+
+/* iPhone-style swipe bar */
+.swipe-bar {
+  width: 120px;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.9), rgba(255,255,255,0.2));
+  box-shadow: 0 0 12px rgba(255,255,255,0.6);
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scaleX(1); }
+  50%      { opacity: 1; transform: scaleX(1.1); }
+}
+
+/* Brand/logo */
+.brand img {
+  max-height: 28px;
+  width: auto;
+  vertical-align: middle;
+}
+.brand {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
