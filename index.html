@@ -2,236 +2,207 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>📰 NetWatch | Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>NetWatch</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <!-- Background overlay -->
-  <div class="overlay"></div>
+  <!-- Background readability layer -->
+  <div class="overlay" aria-hidden="true"></div>
 
-  <!-- Header -->
-  <header class="card header">
-    <div class="brand"><img src="logo.png" alt="NetWatch logo"/> NetWatch</div>
+  <!-- Header: brand + server-style clock -->
+  <header class="header">
+    <div class="brand">
+      <img src="logo.png" alt="NetWatch" />
+      <span>NetWatch</span>
+    </div>
+
+    <!-- Server/monitor clock widget -->
+    <div class="clock" aria-live="polite" aria-label="Current time and date">
+      <div id="clock-time" class="clock-time">--:--:--</div>
+      <div id="clock-date" class="clock-date">Loading date…</div>
+      <div class="clock-led"></div>
+    </div>
   </header>
 
-  <!-- Clock -->
-  <div class="clock-wrapper">
-    <canvas id="appleClock"></canvas>
-  </div>
+  <main class="container">
+    <p class="subtitle">
+      A data-driven project to track threats to health safety nets — because it belongs to everyone.
+    </p>
 
-  <!-- Main -->
-  <main class="container" id="home">
-    <h1 class="title">📰 NetWatch</h1>
-    <p class="subtitle">A data-driven project to track threats to health safety nets – because it belongs to everyone.</p>
+    <!-- iPhone-style grid -->
+    <section class="grid" aria-label="App grid">
+      <!-- App: NetWatch logo -->
+      <button class="tile app" type="button">
+        <img class="app-icon" src="logo.png" alt="" />
+        <span class="label">NetWatch</span>
+      </button>
 
-    <!-- iPhone Grid -->
-    <div class="iphone-grid">
       <!-- Weather -->
-      <div class="iphone-tile weather-tile">
-        <div id="wx-icon">⛅</div>
-        <div id="wx-temp">--°</div>
-        <div id="wx-place">Locating…</div>
-      </div>
+      <button class="tile weather" type="button">
+        <div class="wx-emoji">⛅</div>
+        <div class="wx-temp" id="wx-temp">--°</div>
+        <div class="wx-place" id="wx-place">Locating…</div>
+      </button>
 
       <!-- Executive -->
-      <div class="iphone-tile exec-tile">
-        <img id="seal" alt="Seal of the President of the United States"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/240px-Seal_of_the_President_of_the_United_States.svg.png"/>
-        <div class="tile-label">Executive</div>
-      </div>
+      <button class="tile exec" type="button">
+        <img class="seal" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/120px-Seal_of_the_President_of_the_United_States.svg.png" alt="" />
+        <span class="label">Executive</span>
+      </button>
 
-      <!-- Programs -->
-      <div class="iphone-tile">🟡 <div class="tile-label">Social</div></div>
-      <div class="iphone-tile">🔵 <div class="tile-label">Medicaid</div></div>
-      <div class="iphone-tile">🟠 <div class="tile-label">Housing</div></div>
-      <div class="iphone-tile">⚫ <div class="tile-label">SNAP</div></div>
+      <!-- Programs (simple SVG glyphs) -->
+      <button class="tile icon" type="button" aria-label="Social">
+        <svg viewBox="0 0 24 24" class="glyph"><circle cx="12" cy="12" r="7"/></svg>
+        <span class="label">Social</span>
+      </button>
 
-      <!-- Approval Ratings -->
-      <div class="iphone-tile chart-tile">
-        <canvas id="approvalChart" class="weeble"></canvas>
-      </div>
+      <button class="tile icon" type="button" aria-label="Medicaid">
+        <svg viewBox="0 0 24 24" class="glyph"><rect x="10" y="4" width="4" height="16"/><rect x="4" y="10" width="16" height="4"/></svg>
+        <span class="label">Medicaid</span>
+      </button>
 
-      <!-- Market tiles -->
-      <div class="iphone-tile market-tile">
-        <div class="tile-label">Cattle</div>
-        <div id="market-cattle">Loading…</div>
-      </div>
-      <div class="iphone-tile market-tile">
-        <div class="tile-label">Hogs</div>
-        <div id="market-hogs">Loading…</div>
-      </div>
-      <div class="iphone-tile market-tile">
-        <div class="tile-label">Corn</div>
-        <div id="market-corn">Loading…</div>
-      </div>
-      <div class="iphone-tile market-tile">
-        <div class="tile-label">Soybeans</div>
-        <div id="market-soy">Loading…</div>
-      </div>
+      <button class="tile icon" type="button" aria-label="Housing">
+        <svg viewBox="0 0 24 24" class="glyph"><path d="M3 12L12 5l9 7v7H3z"/></svg>
+        <span class="label">Housing</span>
+      </button>
 
-      <!-- Directory Tiles -->
-      <div class="iphone-tile" id="congressTile">
-        <div class="tile-label">Congress Directory</div>
-      </div>
-      <div class="iphone-tile" id="agenciesTile">
-        <div class="tile-label">Federal Agencies</div>
-      </div>
-      <div class="iphone-tile" id="registersTile">
-        <div class="tile-label">Official Registers</div>
-      </div>
-    </div>
+      <button class="tile icon" type="button" aria-label="SNAP">
+        <svg viewBox="0 0 24 24" class="glyph"><path d="M4 6h16l-2 12H6L4 6zm4 14a2 2 0 100-4 2 2 0 000 4zm8 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+        <span class="label">SNAP</span>
+      </button>
+
+      <!-- Markets -->
+      <button class="tile info" type="button">
+        <span class="label">Cattle</span>
+        <div class="small" id="mk-cattle">Loading…</div>
+      </button>
+
+      <button class="tile info" type="button">
+        <span class="label">Hogs</span>
+        <div class="small" id="mk-hogs">Loading…</div>
+      </button>
+
+      <button class="tile info" type="button">
+        <span class="label">Corn</span>
+        <div class="small" id="mk-corn">Loading…</div>
+      </button>
+
+      <button class="tile info" type="button">
+        <span class="label">Soybeans</span>
+        <div class="small" id="mk-soy">Loading…</div>
+      </button>
+
+      <!-- Openable apps -->
+      <button class="tile openable" id="open-congress" type="button" aria-controls="panel-congress" aria-expanded="false">
+        <span class="label">Congress Directory</span>
+      </button>
+
+      <button class="tile openable" id="open-agencies" type="button" aria-controls="panel-agencies" aria-expanded="false">
+        <span class="label">Federal Agencies</span>
+      </button>
+
+      <button class="tile openable" id="open-registers" type="button" aria-controls="panel-registers" aria-expanded="false">
+        <span class="label">Official Registers</span>
+      </button>
+    </section>
   </main>
 
-  <!-- Fullscreen Panels -->
-  <section class="fullscreen hidden" id="congressPanel">
-    <button class="close-btn" id="closeCongress">✕</button>
+  <!-- Fullscreen panels (flip/open) -->
+  <section class="panel" id="panel-congress" aria-hidden="true">
+    <button class="panel-close" type="button" aria-label="Close">✕</button>
     <h2>Members of Congress — Live Directory</h2>
-    <div class="scroll-area">
-      <table id="congressTable" aria-live="polite">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Chamber</th>
-            <th>State/Dist.</th>
-            <th>Party</th>
-            <th>Term Ends</th>
-            <th>Days Left</th>
-            <th>Profile</th>
-          </tr>
-        </thead>
-        <tbody><tr><td colspan="7" style="color:var(--muted)">Loading…</td></tr></tbody>
-      </table>
+    <div class="panel-body">
+      <div class="controls">
+        <input type="search" placeholder="Search name, state, party" />
+        <select>
+          <option>All Chambers</option><option>House</option><option>Senate</option>
+        </select>
+      </div>
+
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Chamber</th><th>State/Dist.</th><th>Party</th><th>Term Ends</th><th>Days Left</th><th>Profile</th></tr>
+          </thead>
+          <tbody><tr><td colspan="7" class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-  <section class="fullscreen hidden" id="agenciesPanel">
-    <button class="close-btn" id="closeAgencies">✕</button>
-    <h3>Federal Agencies</h3>
-    <div class="scroll-area">
-      <a href="https://www.cms.gov/" target="_blank">CMS</a><br/>
-      <a href="https://www.hud.gov/" target="_blank">HUD</a><br/>
-      <a href="https://www.usda.gov/" target="_blank">USDA</a><br/>
-      <a href="https://www.ssa.gov/" target="_blank">SSA</a>
+  <section class="panel" id="panel-agencies" aria-hidden="true">
+    <button class="panel-close" type="button" aria-label="Close">✕</button>
+    <h2>Federal Agencies</h2>
+    <div class="panel-body links">
+      <a href="https://www.cms.gov/" target="_blank" rel="noopener">CMS</a>
+      <a href="https://www.hud.gov/" target="_blank" rel="noopener">HUD</a>
+      <a href="https://www.usda.gov/" target="_blank" rel="noopener">USDA</a>
+      <a href="https://www.ssa.gov/" target="_blank" rel="noopener">SSA</a>
     </div>
   </section>
 
-  <section class="fullscreen hidden" id="registersPanel">
-    <button class="close-btn" id="closeRegisters">✕</button>
-    <h3>Official Registers</h3>
-    <div class="scroll-area">
-      <a href="https://www.federalregister.gov/" target="_blank">Federal Register</a><br/>
-      <a href="https://www.congress.gov/" target="_blank">Congress</a><br/>
-      <a href="https://www.govinfo.gov/" target="_blank">GovInfo</a>
+  <section class="panel" id="panel-registers" aria-hidden="true">
+    <button class="panel-close" type="button" aria-label="Close">✕</button>
+    <h2>Official Registers</h2>
+    <div class="panel-body links">
+      <a href="https://www.federalregister.gov/" target="_blank" rel="noopener">Federal Register</a>
+      <a href="https://www.congress.gov/" target="_blank" rel="noopener">Congress</a>
+      <a href="https://www.govinfo.gov/" target="_blank" rel="noopener">GovInfo</a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="footer-text">© 2025 NetWatch • Atlanta, Georgia 30303</div>
-    <div class="swipe-bar"></div>
+    <div>© 2025 NetWatch • Atlanta, Georgia 30303</div>
+    <div class="swipe-bar" aria-hidden="true"></div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- JS: server clock + panel wiring -->
   <script>
-    const canvas = document.getElementById("appleClock");
-    const ctx = canvas.getContext("2d");
-    canvas.width = 200;
-    canvas.height = 200;
+    // ===== Server-style clock =====
+    const timeEl = document.getElementById('clock-time');
+    const dateEl = document.getElementById('clock-date');
 
-    function drawClock() {
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function updateClock(){
       const now = new Date();
-      const radius = canvas.width / 2;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(radius, radius);
+      const hh = pad(now.getHours());
+      const mm = pad(now.getMinutes());
+      const ss = pad(now.getSeconds());
+      timeEl.textContent = `${hh}:${mm}:${ss}`;
 
-      ctx.beginPath();
-      ctx.arc(0, 0, radius-5, 0, 2*Math.PI);
-      ctx.fillStyle = "rgba(255,255,255,0.25)";
-      ctx.fill();
-      ctx.strokeStyle = "rgba(0,0,0,0.3)";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      const logo = new Image();
-      logo.src = "logo.png";
-      const logoSize = radius * 0.8;
-      ctx.globalAlpha = 0.9;
-      ctx.drawImage(logo, -logoSize/2, -logoSize/2, logoSize, logoSize);
-      ctx.globalAlpha = 1.0;
-
-      ctx.font = "14px SF Pro Display, sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = "#000";
-      for (let num = 1; num <= 12; num++) {
-        const ang = num * Math.PI / 6;
-        ctx.rotate(ang);
-        ctx.translate(0, -radius + 25);
-        ctx.rotate(-ang);
-        ctx.fillText(num.toString(), 0, 0);
-        ctx.rotate(ang);
-        ctx.translate(0, radius - 25);
-        ctx.rotate(-ang);
-      }
-
-      let sec = now.getSeconds();
-      let min = now.getMinutes();
-      let hr  = now.getHours();
-
-      hr = hr % 12;
-      hr = (hr * Math.PI / 6) + (min * Math.PI / (6*60));
-      min = (min * Math.PI / 30) + (sec * Math.PI / (30*60));
-      sec = sec * Math.PI / 30;
-
-      ctx.beginPath();
-      ctx.moveTo(0,0);
-      ctx.lineTo(radius*0.5*Math.cos(hr-Math.PI/2), radius*0.5*Math.sin(hr-Math.PI/2));
-      ctx.lineWidth = 4;
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(0,0);
-      ctx.lineTo(radius*0.7*Math.cos(min-Math.PI/2), radius*0.7*Math.sin(min-Math.PI/2));
-      ctx.lineWidth = 3;
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(0,0);
-      ctx.lineTo(radius*0.8*Math.cos(sec-Math.PI/2), radius*0.8*Math.sin(sec-Math.PI/2));
-      ctx.strokeStyle = "red";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.strokeStyle = "#000";
-
-      ctx.restore();
+      const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const date = now.getDate();
+      dateEl.textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${date} ${now.getFullYear()}`;
     }
+    updateClock(); setInterval(updateClock, 1000);
 
-    setInterval(drawClock, 1000);
-
-    function setupFullscreen(tileId, panelId, closeId) {
-      const tile = document.getElementById(tileId);
+    // ===== Panels (flip open / close) =====
+    function wirePanel(openBtnId, panelId){
+      const btn = document.getElementById(openBtnId);
       const panel = document.getElementById(panelId);
-      const close = document.getElementById(closeId);
+      const close = panel.querySelector('.panel-close');
 
-      tile.addEventListener("click", () => {
-        panel.classList.remove("hidden");
-        setTimeout(() => panel.classList.add("active"), 10);
-      });
-
-      close.addEventListener("click", () => {
-        panel.classList.remove("active");
-        setTimeout(() => panel.classList.add("hidden"), 500);
-      });
+      function open(){
+        btn.setAttribute('aria-expanded','true');
+        panel.setAttribute('aria-hidden','false');
+        document.body.classList.add('panel-open');
+        requestAnimationFrame(()=> panel.classList.add('active'));
+      }
+      function shut(){
+        btn.setAttribute('aria-expanded','false');
+        panel.classList.remove('active');
+        setTimeout(()=>{ panel.setAttribute('aria-hidden','true'); document.body.classList.remove('panel-open'); }, 420);
+      }
+      btn.addEventListener('click', open);
+      close.addEventListener('click', shut);
+      document.addEventListener('keydown', e => { if(e.key === 'Escape' && panel.classList.contains('active')) shut(); });
     }
-
-    setupFullscreen("congressTile", "congressPanel", "closeCongress");
-    setupFullscreen("agenciesTile", "agenciesPanel", "closeAgencies");
-    setupFullscreen("registersTile", "registersPanel", "closeRegisters");
+    wirePanel('open-congress', 'panel-congress');
+    wirePanel('open-agencies', 'panel-agencies');
+    wirePanel('open-registers', 'panel-registers');
   </script>
 </body>
 </html>
-
