@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>📰 NetWatch | Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
@@ -17,7 +17,7 @@
     <div class="brand"><img src="logo.png" alt="NetWatch logo"/> NetWatch</div>
   </header>
 
-  <!-- Centered Apple-style clock -->
+  <!-- Clock -->
   <div class="clock-wrapper">
     <canvas id="appleClock"></canvas>
   </div>
@@ -72,70 +72,61 @@
         <div id="market-soy">Loading…</div>
       </div>
 
-      <!-- Congress tile -->
-      <div class="iphone-tile congress-tile" id="congressTile">
+      <!-- Directory Tiles -->
+      <div class="iphone-tile" id="congressTile">
         <div class="tile-label">Congress Directory</div>
       </div>
-
-      <!-- Federal Agencies tile -->
-      <div class="iphone-tile agencies-tile" id="agenciesTile">
+      <div class="iphone-tile" id="agenciesTile">
         <div class="tile-label">Federal Agencies</div>
       </div>
-
-      <!-- Official Registers tile -->
-      <div class="iphone-tile registers-tile" id="registersTile">
+      <div class="iphone-tile" id="registersTile">
         <div class="tile-label">Official Registers</div>
       </div>
     </div>
-
-    <!-- Congress Directory -->
-    <section class="congress hidden" id="congress">
-      <h2>Members of Congress — Live Directory</h2>
-      <div class="controls">
-        <input id="filterText" type="search" placeholder="Search name, state, party" aria-label="Filter" />
-        <select id="filterChamber" aria-label="Chamber">
-          <option value="">All Chambers</option>
-          <option value="House">House</option>
-          <option value="Senate">Senate</option>
-        </select>
-        <select id="filterState" aria-label="State"></select>
-      </div>
-      <div id="congressNote" style="color: var(--muted); font-size:13px; margin-bottom:6px"></div>
-      <div style="overflow:auto">
-        <table id="congressTable" aria-live="polite">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Chamber</th>
-              <th>State/Dist.</th>
-              <th>Party</th>
-              <th>Term Ends</th>
-              <th>Days Left</th>
-              <th>Profile</th>
-            </tr>
-          </thead>
-          <tbody><tr><td colspan="7" style="color:var(--muted)">Loading…</td></tr></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Federal Agencies -->
-    <section class="block hidden" id="agencies">
-      <h3>Federal Agencies</h3>
-      <a href="https://www.cms.gov/" target="_blank">CMS</a>
-      <a href="https://www.hud.gov/" target="_blank">HUD</a>
-      <a href="https://www.usda.gov/" target="_blank">USDA</a>
-      <a href="https://www.ssa.gov/" target="_blank">SSA</a>
-    </section>
-
-    <!-- Official Registers -->
-    <section class="block hidden" id="registers">
-      <h3>Official Registers</h3>
-      <a href="https://www.federalregister.gov/" target="_blank">Federal Register</a>
-      <a href="https://www.congress.gov/" target="_blank">Congress</a>
-      <a href="https://www.govinfo.gov/" target="_blank">GovInfo</a>
-    </section>
   </main>
+
+  <!-- Fullscreen Panels -->
+  <section class="fullscreen hidden" id="congressPanel">
+    <button class="close-btn" id="closeCongress">✕</button>
+    <h2>Members of Congress — Live Directory</h2>
+    <div class="scroll-area">
+      <table id="congressTable" aria-live="polite">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Chamber</th>
+            <th>State/Dist.</th>
+            <th>Party</th>
+            <th>Term Ends</th>
+            <th>Days Left</th>
+            <th>Profile</th>
+          </tr>
+        </thead>
+        <tbody><tr><td colspan="7" style="color:var(--muted)">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="fullscreen hidden" id="agenciesPanel">
+    <button class="close-btn" id="closeAgencies">✕</button>
+    <h3>Federal Agencies</h3>
+    <div class="scroll-area">
+      <a href="https://www.cms.gov/" target="_blank">CMS</a><br/>
+      <a href="https://www.hud.gov/" target="_blank">HUD</a><br/>
+      <a href="https://www.usda.gov/" target="_blank">USDA</a><br/>
+      <a href="https://www.ssa.gov/" target="_blank">SSA</a>
+    </div>
+  </section>
+
+  <section class="fullscreen hidden" id="registersPanel">
+    <button class="close-btn" id="closeRegisters">✕</button>
+    <h3>Official Registers</h3>
+    <div class="scroll-area">
+      <a href="https://www.federalregister.gov/" target="_blank">Federal Register</a><br/>
+      <a href="https://www.congress.gov/" target="_blank">Congress</a><br/>
+      <a href="https://www.govinfo.gov/" target="_blank">GovInfo</a>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
@@ -144,12 +135,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="app.js"></script>
-  <script src="weather.js"></script>
-  <script src="market.js"></script>
-  <script src="approval.js"></script>
-
-  <!-- Clock & Toggles -->
   <script>
     const canvas = document.getElementById("appleClock");
     const ctx = canvas.getContext("2d");
@@ -163,7 +148,6 @@
       ctx.save();
       ctx.translate(radius, radius);
 
-      // Glassy background
       ctx.beginPath();
       ctx.arc(0, 0, radius-5, 0, 2*Math.PI);
       ctx.fillStyle = "rgba(255,255,255,0.25)";
@@ -172,7 +156,6 @@
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Logo
       const logo = new Image();
       logo.src = "logo.png";
       const logoSize = radius * 0.8;
@@ -180,7 +163,6 @@
       ctx.drawImage(logo, -logoSize/2, -logoSize/2, logoSize, logoSize);
       ctx.globalAlpha = 1.0;
 
-      // Numbers
       ctx.font = "14px SF Pro Display, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -196,7 +178,6 @@
         ctx.rotate(-ang);
       }
 
-      // Hands
       let sec = now.getSeconds();
       let min = now.getMinutes();
       let hr  = now.getHours();
@@ -206,21 +187,18 @@
       min = (min * Math.PI / 30) + (sec * Math.PI / (30*60));
       sec = sec * Math.PI / 30;
 
-      // Hour
       ctx.beginPath();
       ctx.moveTo(0,0);
       ctx.lineTo(radius*0.5*Math.cos(hr-Math.PI/2), radius*0.5*Math.sin(hr-Math.PI/2));
       ctx.lineWidth = 4;
       ctx.stroke();
 
-      // Minute
       ctx.beginPath();
       ctx.moveTo(0,0);
       ctx.lineTo(radius*0.7*Math.cos(min-Math.PI/2), radius*0.7*Math.sin(min-Math.PI/2));
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Second
       ctx.beginPath();
       ctx.moveTo(0,0);
       ctx.lineTo(radius*0.8*Math.cos(sec-Math.PI/2), radius*0.8*Math.sin(sec-Math.PI/2));
@@ -234,21 +212,26 @@
 
     setInterval(drawClock, 1000);
 
-    // Toggle panels
-    function setupToggle(tileId, sectionId) {
+    function setupFullscreen(tileId, panelId, closeId) {
       const tile = document.getElementById(tileId);
-      const section = document.getElementById(sectionId);
+      const panel = document.getElementById(panelId);
+      const close = document.getElementById(closeId);
+
       tile.addEventListener("click", () => {
-        section.classList.toggle("hidden");
-        if (!section.classList.contains("hidden")) {
-          section.scrollIntoView({ behavior: "smooth" });
-        }
+        panel.classList.remove("hidden");
+        setTimeout(() => panel.classList.add("active"), 10);
+      });
+
+      close.addEventListener("click", () => {
+        panel.classList.remove("active");
+        setTimeout(() => panel.classList.add("hidden"), 500);
       });
     }
 
-    setupToggle("congressTile", "congress");
-    setupToggle("agenciesTile", "agencies");
-    setupToggle("registersTile", "registers");
+    setupFullscreen("congressTile", "congressPanel", "closeCongress");
+    setupFullscreen("agenciesTile", "agenciesPanel", "closeAgencies");
+    setupFullscreen("registersTile", "registersPanel", "closeRegisters");
   </script>
 </body>
 </html>
+
